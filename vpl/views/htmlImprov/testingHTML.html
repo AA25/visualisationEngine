@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="./cssImprov/bootstrap-3.3.7-dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="./cssImprov/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="./cssImprov/visualEng.css" rel="stylesheet" type="text/css">
+    <title>Submissions List</title>
+</head>
+<section id="subListBody">
+
+<h1 id="tableTitle">Submissions list</h1>
+
+<h3>
+    <span id="studentNo"></span>
+    Possible Submissions from enrolled students.
+</h3>
+
+<div class="max-w-70pc max-h-400 mg-t-15 mg-l-15 mg-r-15" style="position:relative; height:380px; text-align: center;">
+    <canvas id="myCChart" width="400" height="300" style=""></canvas>
+</div>
+
+<div class="" style="height:380px; width:100%; margin-top: 15px">
+    <div id="timeGradeCont" style="width:48%; float:left">
+        <canvas id="timeChart" width="" height="300"></canvas>
+    </div>
+    <div id="timeGradeChartCont" style="width:48%; float:left">
+        <canvas id="timeGradeChart" width="" height="300"></canvas>
+    </div>
+</div>
+
+<div id="letterLinksContainer" class="mt-10 txt-center"></div>
+
+<div id="displayStatus" class="table-responsive mt-10 displayNone">
+    <table id="outputTable" class="table table-striped table-hover">
+        <thead id="tableHeader" class="thead-inverse">
+        <tr>
+            <th class="roundedBorderTopLeft"><img src="./imgImprov/NUIM_Symbol.svg.png" alt="Maynooth University Logo" height="25px" width="25px"></th>
+            <th>First/Last Name</th>
+            <th>Submitted on</th>
+            <th>Submission amount</th>
+            <th>Submission Time</th>
+            <th class="roundedBorderTopRight">Grade</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<div class="" style="position:relative; text-align: center; max-height: 400px; max-width: 850px;display: none; ">
+    <canvas id="gauDistribution" width="850" height="400" style=""></canvas>
+</div>
+
+    <div id="chartdiv" style="position: relative; display: block;"></div>
+
+<!--<div id="tableLoader" class="txt-center mg-t-20"><i class="fa fa-cog fa-spin fa-3x fa-fw"></i></br><span>One moment...</span></div>-->
+
+
+<script type="text/javascript" src="./jsImprov/JQuery.js-3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="./jsImprov/Chart.js-2.3.0/Chart.bundle.js"></script>
+<script type="text/javascript" src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script type="text/javascript" src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script type="text/javascript" src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script type="text/javascript" src="./jsImprov/testingJS.js"></script>
+
+
+</section>
+</html>

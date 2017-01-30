@@ -1,0 +1,104 @@
+#chartdiv {
+    width       : 100%;
+    height      : 400px;
+    font-size   : 11px;
+}
+/*Firefox has some awkward fieldset styling involving width that interferes with the responsive table.
+This cannot be overridden without a Firefox-specific hack that we don’t provide in Bootstrap:*/
+@-moz-document url-prefix() {
+    fieldset { display: table-cell; }
+}
+
+/*START CSS FOR ALL CONTENT **************************/
+a {
+    color: #007e8c;
+}
+.colorGreen{
+    color: green;
+}
+#subListBody a {
+    color: #007e8c;
+}
+.mt-10 {
+    margin-top: 10px;
+}
+.displayNone {
+    display: none;
+}
+.max-w-70pc {
+    max-width: 70% !important;
+}
+.max-h-400 {
+    max-height: 400px !important;
+}
+.mg-t-15 {
+    margin-top: 15px !important;
+}
+.mg-t-20 {
+    margin-top: 20px !important;
+}
+.mg-r-15 {
+    margin-right: 15% !important;
+}
+.mg-l-15 {
+    margin-left: 15% !important;
+}
+.mg-l-5px {
+    margin-left: 5px !important;
+}
+.txt-center {
+    text-align: center;
+}
+.disp-block {
+    display: block !important;
+}
+.marg-auto {
+    margin: auto !important;
+}
+
+/*END CSS FOR ALL CONTENT **************************/
+
+/*START CSS FOR CHARTS *****************************/
+#timeGradeChart {
+    padding-top: 10px;
+}
+/*END CSS FOR CHARTS **************************/
+
+
+/*START CSS FOR THE TABLE **************************/
+#chartContainer {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    height: 300px;
+}
+/*END CSS FOR THE CHART ****************************/
+
+
+/*START CSS FOR THE TABLE **************************/
+#displayTable {
+    position: relative !important;
+    text-align: left !important;
+}
+#tableHeader {
+    background-color: #8d322c;
+    color: white;
+    border-top-left-radius: 5px;
+}
+.roundedBorderTopLeft {
+    border-top-left-radius: 5px;
+}
+.roundedBorderTopRight {
+    border-top-right-radius: 5px;
+}
+.letterButtons {
+    background: #8d322c;
+    color: #ffffff;
+}
+.letterButtons:hover, .letterButtons:focus, .letterButtons:active, .letterButtons.active, .letterButtons:active:focus {
+    background: #ffffff;
+    color: #8d322c;
+    border-color: #8d322c;
+}
+/*END CSS FOR THE TABLE **************************/
+
