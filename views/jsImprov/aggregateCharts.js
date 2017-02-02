@@ -1,6 +1,10 @@
 /**
  * Created by Akingbade on 12/1/2016.
  */
+//Suggestion: Make private object of the data
+var avgGradePieChart;
+var globjsonLabData;
+
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 });
@@ -27,16 +31,16 @@ function retrieveData(postData){
          alert('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText);
       },
       success: function(result){
-          $("#loader").hide();
           var resultCont = JSON.parse(result);
           var jsonLabData = resultCont[0];
           jsonLabData = cleanUpTable(jsonLabData);
           var labNames = resultCont[1];
-          //console.log(jsonLabData);
-          //boxPlotGrades(jsonLabData, labNames);
+          globjsonLabData = jsonLabData;
           boxPlotTimes(jsonLabData, labNames);
+          // boxPlotGrades(jsonLabData, labNames);
           groupByGrades(jsonLabData);
           groupByTime(jsonLabData);
+          $("#loader").hide();
           $('#aggPieCharts').removeClass('disp-none');
       }
    });
@@ -108,10 +112,33 @@ function assignGraphData(totalAs,totalBs,totalCs,totalFs){
     var ctxGrade = document.getElementById("avgGradeChart").getContext("2d");
     ctxGrade.canvas.width = 300;
     ctxGrade.canvas.height = 300;
-    var avgGradePieChart = new Chart(ctxGrade,{
+    avgGradePieChart = new Chart(ctxGrade,{
         type: 'pie',
         data: dataChart,
         options: {}
+    });
+
+    $('#avgGradeChart').click(function(evt) {
+        var activePoints = avgGradePieChart.getElementsAtEvent(evt);
+        if(activePoints.length !== 0){
+            var label = activePoints[0]._model.label;
+            if(label == "Students with an average over 80"){
+                constructTableContent(80,'',null);
+                // groupTimeData(gradeAarr);
+            }else if(label == "Students with an average between 79-60"){
+                constructTableContent(60,'',null);
+                // timeBarr = gradeBarr;
+                // groupTimeData(gradeBarr);
+            }else if(label == "Students with an average between 59-40"){
+                constructTableContent(40,'',null);
+                // timeCarr = gradeCarr;
+                // groupTimeData(gradeCarr);
+            }else if(label == "Students with an average below 39"){
+                constructTableContent(0,'',null);
+                // timeDarr = gradeFarr;
+                // groupTimeData(gradeFarr);
+            }
+        }
     });
 }
 
@@ -176,6 +203,43 @@ function assignTimeData(timeA, timeB, timeC, timeD, timeE){
         options: {}
     });
 
+}
+
+function constructTableContent(gradeGroup,letter,array){
+    if(gradeGroup == 80){
+        array = assignTableContent(80,100);
+    }else if(gradeGroup == 60){
+        array = assignTableContent(60,79);
+    }else if(gradeGroup == 40){
+        array = assignTableContent(40,59);
+    }else if(gradeGroup == 0){
+        array = assignTableContent(0,39);
+    }
+    displayTable(array);
+}
+
+function assignTableContent(lBound,uBound){
+    var tempArray = [];
+    for(var key in globjsonLabData){
+        if(globjsonLabData.hasOwnProperty(key)){
+            if(globjsonLabData[key]["stuAvgGrade"][0] >= lBound && globjsonLabData[key]["stuAvgGrade"][0] <= uBound){
+                tempArray.push(globjsonLabData[key]);
+            }
+        }
+    }
+    return tempArray;
+}
+
+function displayTable(tableContent){
+    $("#outputTable tbody").empty();
+    for(var eachArray = 0; eachArray < tableContent.length; eachArray++){
+        var name = tableContent[eachArray].fullName[0];
+        var avgGrade = tableContent[eachArray].stuAvgGrade[0];
+        var avgTime = tableContent[eachArray].stuAvgTime[0];
+        var newRowContent = "<tr><th scope='row'></th><td>"+name+"</td><td class='colorGreen'>"+avgGrade+"</td><td>"+avgTime+"</td></tr>";
+        $("#outputTable tbody").append(newRowContent);
+    }
+    $("#displayStatus").show();
 }
 
 function boxPlotTimes(jsonLabData, labNames){
@@ -244,7 +308,7 @@ function boxPlotTimes(jsonLabData, labNames){
         showlegend: false
     };
 
-    Plotly.newPlot('boxPlotGrade', data, layout);
+    Plotly.newPlot('boxPlotTime', data, layout);
 }
 
 function boxPlotGrades(jsonLabData, labNames){
@@ -293,7 +357,7 @@ function boxPlotGrades(jsonLabData, labNames){
     //console.log(data);
     //
     layout = {
-        title: 'Box plots for each lab retrieved',
+        title: 'Box Plot for student grade per lab',
         yaxis: {
             autorange: true,
             showgrid: true,

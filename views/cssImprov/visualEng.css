@@ -7,6 +7,11 @@
 #aggregateLabs {
     padding-top: 45px;
 }
+
+.bg-may {
+    /*background-image: url("../imgImprov/NUIM_Symbol.svg.png");*/
+    /*background-repeat: no-repeat;*/
+}
 /*Firefox has some awkward fieldset styling involving width that interferes with the responsive table.
 This cannot be overridden without a Firefox-specific hack that we don’t provide in Bootstrap:*/
 @-moz-document url-prefix() {
@@ -28,6 +33,9 @@ a {
 }
 .mt-5 {
     margin-top: 5px;
+}
+.pb-20 {
+    padding-bottom: 20px;
 }
 .displayNone {
     display: none;

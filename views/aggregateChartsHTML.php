@@ -28,7 +28,6 @@ if($_GET['function']=='getWholeData'){
         $wholeLabData, $labQuestions
     );
     echo json_encode($responsedWith);
-    //echo json_encode($wholeLabData);
 }else{
     include('/htmlImprov/aggregateCharts.html');
 }
