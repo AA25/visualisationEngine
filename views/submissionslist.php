@@ -13,7 +13,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with VPL for Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
 /**
  * List student submissions of a VPL instances
  *
@@ -81,7 +80,6 @@ class vpl_submissionlist_order{
             return -self::$ascending;
         }
     }
-
     /**
      * Check and set data to sort return comparation function
      * $field field to compare
@@ -111,7 +109,6 @@ class vpl_submissionlist_order{
         }
     }
 }
-
 function vpl_evaluate($vpl,$all_data,$userinfo,$nevaluation,$groups_url){
     global $OUTPUT;
     $nevaluation++;
@@ -135,7 +132,6 @@ function vpl_evaluate($vpl,$all_data,$userinfo,$nevaluation,$groups_url){
     $vpl->print_footer();
     die;
 }
-
 function vpl_submissionlist_arrow($burl, $sort, $selsort, $seldir){
     global $OUTPUT;
     $newdir = 'down';
@@ -153,14 +149,11 @@ function vpl_submissionlist_arrow($burl, $sort, $selsort, $seldir){
     $url = vpl_url_add_param($url,'sortdir',$newdir);
     return ' <a href="'.$url.'">'.($OUTPUT->pix_icon('t/'.$sortdir,get_string($sortdir))).'</a>';
 }
-
 require_once dirname(__FILE__).'/../../../config.php';
 require_once $CFG->dirroot.'/mod/vpl/locallib.php';
 require_once $CFG->dirroot.'/mod/vpl/vpl.class.php';
 require_once $CFG->dirroot.'/mod/vpl/vpl_submission_CE.class.php';
-
 require_login();
-
 $id = required_param('id', PARAM_INT);
 $group = optional_param('group', -1, PARAM_INT);
 $evaluate = optional_param('evaluate', 0, PARAM_INT);
@@ -174,7 +167,6 @@ if($evaluate>0){
 }
 $vpl = new mod_vpl($id);
 $vpl->prepare_page('views/submissionslist.php',array('id' => $id));
-
 $course = $vpl->get_course();
 $cm = $vpl->get_course_module();
 $context_module = $vpl->get_context();
@@ -186,12 +178,10 @@ $vpl->print_view_tabs(basename(__FILE__));
 @ob_flush();
 flush();
 // find out current groups mode
-
 $groupmode = groups_get_activity_groupmode($cm);
 if(!$groupmode){
     $groupmode = groups_get_course_groupmode($vpl->get_course());
 }
-
 //get graders
 $graders = $vpl->get_graders();
 $gradeable=$vpl->get_grade() != 0;
@@ -200,7 +190,6 @@ $currentgroup = groups_get_activity_group($cm, true);
 if(!$currentgroup){
     $currentgroup='';
 }
-
 $list = $vpl->get_students($currentgroup);
 $submissions = $vpl->all_last_user_submission();
 $submissions_number = $vpl->get_submissions_number();
@@ -251,7 +240,6 @@ foreach ($list as $userinfo) {
         }else{
             $subinstance->nsubmissions = ' ';
         }
-
     }
     $data = new stdClass();
     $data->userinfo = $userinfo;
@@ -266,9 +254,7 @@ foreach ($list as $userinfo) {
 $groups_url =vpl_mod_href('views/submissionslist.php','id',$id,'sort',$sort,'sortdir',$sortdir,'selection',$subselection);
 //Unblock user session
 session_write_close();
-
 $base_url = vpl_mod_href('views/submissionslist.php','id',$id,'group',$group);
-
 $firstname = get_string('firstname').vpl_submissionlist_arrow($base_url,'firstname',$sort,$sortdir);
 $lastname  = get_string('lastname').vpl_submissionlist_arrow($base_url,'lastname',$sort,$sortdir);
 if ($CFG->fullnamedisplay == 'lastname firstname') { // for better view (dlnsk)
@@ -368,7 +354,6 @@ foreach ($all_data as $data) {
             }else{
                 $grade = $text;
             }
-
             $graderid=$subinstance->grader;
             $graderuser = $submission->get_grader($graderid);
             //Count evaluator marks
@@ -413,7 +398,6 @@ foreach ($all_data as $data) {
         $grader ='<div id="m'.$subid.'">'.$grader.'</div>';
         $gradedon ='<div id="o'.$subid.'">'.$gradedon.'</div>';
     }
-
     $usernumber++;
     if($gradeable){
         $table->data[] = array ($usernumber,
@@ -435,7 +419,6 @@ foreach ($all_data as $data) {
             $data->userinfo->id);
     }
 }
-
 if(count($ngrades)){
     if ($CFG->fullnamedisplay == 'lastname firstname') { // for better view (dlnsk)
         $namehead = get_string('lastname').' / '.get_string('firstname');
@@ -480,34 +463,25 @@ if(($gradeable || $vpl->get_instance()->evaluate) && $subselection != 'notgraded
     $url_sel->set_label(get_string('evaluate',VPL));
     //echo $OUTPUT->render($url_sel); //This is the drop down menu for evaluate
 }
-
 @ob_flush();
 flush();
-
 session_start(); //Opening a session
 $_SESSION['origTable'] = $table; // A copy of the $table var stored in the browser session
-
 //$sessionfile = ini_get('session.save_path') . '/' . 'sess_'.session_id();
 //echo 'session file: ', $sessionfile, ' ', '<br>', 'size: ', filesize($sessionfile), "\n";
 //echo var_dump(ini_get('session.save_path'));
-
 //echo '<pre>';
 //print_r($table->data);
 //echo '</pre>';
-
 //echo html_writer::table($table); //This prints out the original VPL table
-
 //$y_data=vpl_get_working_periods($vpl, $userid);
-
 include('/phpImprov/testingPHP.php');
 //include('/phpImprov/aggregateCharts.php');
-
 // Create a DOM object from a HTML file
 include('/htmlImprov/testingHTML.html');
 //include('/htmlImprov/aggregateCharts.html');
 //include('/phpImprov/aggregateChartsHTML.php');
 //include('/phpImprov/getTime.php');
-
 //Generate next info as <div id="submissionid">nextuser</div>
 if(count($next_ids)){
     //Hide info
@@ -518,10 +492,7 @@ if(count($next_ids)){
     echo '</div>';
 }
 ?>
-<!--<button id="displayAggregate" type="button" href="--><?php //echo substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT'])).'/htmlImprov/aggregateCharts.html';?><!--" class="btn btn-default letterButtons disp-block marg-auto">Display the charts for the aggregate of all lab questions</button>-->
-<a href="<?php echo substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT'])).'/aggregateChartsHTML.php';?>" target="_blank">Testing</a>
+    <!--<button id="displayAggregate" type="button" href="--><?php //echo substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT'])).'/htmlImprov/aggregateCharts.html';?><!--" class="btn btn-default letterButtons disp-block marg-auto">Display the charts for the aggregate of all lab questions</button>-->
+    <a href="<?php echo substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT'])).'/aggregateChartsHTML.php';?>" target="_blank">Testing</a>
 <?php
-
 $vpl->print_footer();
-
-

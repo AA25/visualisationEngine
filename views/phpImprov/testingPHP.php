@@ -14,6 +14,7 @@ if($_GET['function']=='getTable') {
 }else if($_GET['function']=='getSubs'){
     echo json_encode($_SESSION['thisSubmission']); //This might be redundant
 }else{//When the initial php page is loaded. Please speed this up Ade LOL
+//    include('/htmlImprov/testingHTML.html');
     $iD = required_param('id', PARAM_INT); // ID of lab question
     $counter = 0;
     foreach ($_SESSION['origTable']->data as $data){

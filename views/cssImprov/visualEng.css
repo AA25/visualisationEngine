@@ -3,6 +3,10 @@
     height      : 400px;
     font-size   : 11px;
 }
+
+#aggregateLabs {
+    padding-top: 45px;
+}
 /*Firefox has some awkward fieldset styling involving width that interferes with the responsive table.
 This cannot be overridden without a Firefox-specific hack that we don’t provide in Bootstrap:*/
 @-moz-document url-prefix() {
@@ -21,6 +25,9 @@ a {
 }
 .mt-10 {
     margin-top: 10px;
+}
+.mt-5 {
+    margin-top: 5px;
 }
 .displayNone {
     display: none;
@@ -52,10 +59,15 @@ a {
 .disp-block {
     display: block !important;
 }
+.disp-none {
+    display: none !important;
+}
 .marg-auto {
     margin: auto !important;
 }
-
+.font-large {
+    font-size: 18px !important;
+}
 /*END CSS FOR ALL CONTENT **************************/
 
 /*START CSS FOR CHARTS *****************************/

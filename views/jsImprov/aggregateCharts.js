@@ -1,16 +1,18 @@
 /**
  * Created by Akingbade on 12/1/2016.
  */
-//var labNames = [];
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
 
 function labInputs(){
     var labInputs = $("#labEntries").val();
     var labInputsArr = labInputs.split(",");
     if (verifyLabInputs(labInputsArr)){
         retrieveData(labInputsArr);
-        console.log("its valid");
+        //console.log("its valid");
     }else{
-        console.log("not valid");
+        //console.log("not valid");
     }
 }
 
@@ -35,6 +37,7 @@ function retrieveData(postData){
           boxPlotTimes(jsonLabData, labNames);
           groupByGrades(jsonLabData);
           groupByTime(jsonLabData);
+          $('#aggPieCharts').removeClass('disp-none');
       }
    });
 }
@@ -241,7 +244,7 @@ function boxPlotTimes(jsonLabData, labNames){
         showlegend: false
     };
 
-    Plotly.newPlot('boxPlotGrade2', data, layout);
+    Plotly.newPlot('boxPlotGrade', data, layout);
 }
 
 function boxPlotGrades(jsonLabData, labNames){
@@ -312,7 +315,7 @@ function boxPlotGrades(jsonLabData, labNames){
         showlegend: false
     };
 
-    Plotly.newPlot('boxPlotGrade2', data, layout);
+    Plotly.newPlot('boxPlotGrade', data, layout);
 }
 
 // var xData = ['KB input w/ Strings 1', 'KB input w/ ints2',
