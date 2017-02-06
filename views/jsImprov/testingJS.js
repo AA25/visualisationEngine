@@ -263,7 +263,6 @@ function assignChartData(totalAs,totalBs,totalCs,totalFs,totalNoGrade, totalAnom
 
 document.getElementById("myCChart").onclick = function(evt) {
     var activePoints = myPieChartV2.getElementsAtEvent(evt);
-    console.log(activePoints);
     if(activePoints.length !== 0){
         var label = activePoints[0]._model.label;
         if(label == "Students with over 80"){

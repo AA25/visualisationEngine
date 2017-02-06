@@ -4,8 +4,10 @@
     font-size   : 11px;
 }
 
-#aggregateLabs {
-    padding-top: 45px;
+html, #aggregateLabs {
+    padding-top: 20px;
+    height: 100%;
+    width: 100%;
 }
 
 .bg-may {
@@ -33,6 +35,9 @@ a {
 }
 .mt-5 {
     margin-top: 5px;
+}
+.mb-0 {
+    margin-bottom: 0px !important;
 }
 .pb-20 {
     padding-bottom: 20px;
@@ -122,3 +127,67 @@ a {
 }
 /*END CSS FOR THE TABLE **************************/
 
+/*CSS FOR TOGGLE SWITCH   **************************/
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 35px;
+    height: 15px;
+}
+
+.switch input {display:none;}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 4px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: green;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px green;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(15px);
+    -ms-transform: translateX(15px);
+    transform: translateX(15px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+/*END CSS FOR TOGGLE SWITCH   **********************/
+.displayStatus{
+     max-width: 100% !important;
+}
+.popover {
+    /*max-height: 100% !important;*/
+    max-width: 50% !important;
+}

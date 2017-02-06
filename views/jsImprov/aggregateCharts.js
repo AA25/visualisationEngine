@@ -7,7 +7,17 @@ var globjsonLabData;
 
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="popover"]').popover({container: "body"});
 });
+
+function checkBox(locator){
+    if(!($(locator).find(":checkbox").is(':checked'))){
+        $(locator).find(":checkbox").prop("checked",true);
+    }else{
+        $(locator).find(":checkbox").prop("checked",false);
+    }
+
+}
 
 function labInputs(){
     var labInputs = $("#labEntries").val();
@@ -42,6 +52,7 @@ function retrieveData(postData){
           groupByTime(jsonLabData);
           $("#loader").hide();
           $('#aggPieCharts').removeClass('disp-none');
+          $("#aggFooter").show();
       }
    });
 }
@@ -95,10 +106,10 @@ function groupByGrades(jsonLabData){
 function assignGraphData(totalAs,totalBs,totalCs,totalFs){
     var dataChart = {
         labels: [
-            "Students with an average over 80",
-            "Students with an average between 79-60",
-            "Students with an average between 59-40",
-            "Students with an average below 39",
+            "Average grade over 80",
+            "Average grade between 79-60",
+            "Average grade between 59-40",
+            "Average grade below 39"
         ],
         datasets: [{
             data: [totalAs, totalBs, totalCs, totalFs],
@@ -122,18 +133,18 @@ function assignGraphData(totalAs,totalBs,totalCs,totalFs){
         var activePoints = avgGradePieChart.getElementsAtEvent(evt);
         if(activePoints.length !== 0){
             var label = activePoints[0]._model.label;
-            if(label == "Students with an average over 80"){
+            if(label == "Average grade over 80"){
                 constructTableContent(80,'',null);
                 // groupTimeData(gradeAarr);
-            }else if(label == "Students with an average between 79-60"){
+            }else if(label == "Average grade between 79-60"){
                 constructTableContent(60,'',null);
                 // timeBarr = gradeBarr;
                 // groupTimeData(gradeBarr);
-            }else if(label == "Students with an average between 59-40"){
+            }else if(label == "Average grade between 59-40"){
                 constructTableContent(40,'',null);
                 // timeCarr = gradeCarr;
                 // groupTimeData(gradeCarr);
-            }else if(label == "Students with an average below 39"){
+            }else if(label == "Average grade below 39"){
                 constructTableContent(0,'',null);
                 // timeDarr = gradeFarr;
                 // groupTimeData(gradeFarr);
@@ -231,14 +242,19 @@ function assignTableContent(lBound,uBound){
 }
 
 function displayTable(tableContent){
+    var hash = "#";
     $("#outputTable tbody").empty();
     for(var eachArray = 0; eachArray < tableContent.length; eachArray++){
         var name = tableContent[eachArray].fullName[0];
         var avgGrade = tableContent[eachArray].stuAvgGrade[0];
         var avgTime = tableContent[eachArray].stuAvgTime[0];
-        var newRowContent = "<tr><th scope='row'></th><td>"+name+"</td><td class='colorGreen'>"+avgGrade+"</td><td>"+avgTime+"</td></tr>";
+        var moreInfo = "'"+"switchLink"+eachArray+"'";
+        var newRowContent = "<tr><td scope='row'></td><td>"+name+"</td><td class='colorGreen'>"+avgGrade+"</td><td>"+avgTime+"</td>" +
+            "<td><label class='switch mb-0 mt-5'><input type='checkbox'><div id="+moreInfo+" class='slider round' type='button' data-html='true' data-toggle='popover' data-placement='left' data-content='This section will be filled with data about the user. Such as the grade for each individual lab. Maybe have a graph...'></div></label></td></tr>";
+
         $("#outputTable tbody").append(newRowContent);
     }
+    $('[data-toggle="popover"]').popover({container: "body"});
     $("#displayStatus").show();
 }
 
