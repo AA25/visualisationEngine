@@ -81,6 +81,9 @@ a {
 .font-large {
     font-size: 18px !important;
 }
+.fa-1-2x{
+    font-size: 1.2em;
+}
 /*END CSS FOR ALL CONTENT **************************/
 
 /*START CSS FOR CHARTS *****************************/
@@ -89,6 +92,31 @@ a {
 }
 /*END CSS FOR CHARTS **************************/
 
+/*START CSS FOR INPUT BOX *****************************/
+#labEntries {
+    border-radius: 10px;
+    /* border-color: #32CD32; */
+    border-style: solid;
+    border-width: thin;
+    border-color: #ccc;
+    height: 30px;
+    padding: 5px;
+}
+#labEntries:focus {
+    outline:none;
+}
+#retrieveID:focus {
+    outline:none;
+}
+#retrieveID:focus {
+    border-color: inherit;
+}
+#retrieveID{
+    height: 30px;
+    border-radius: 10px;
+    padding-top: 5px;
+}
+/*END CSS FOR INPUT **************************/
 
 /*START CSS FOR THE TABLE **************************/
 #chartContainer {

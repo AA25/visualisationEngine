@@ -25,37 +25,52 @@ function labInputs(){
     if (verifyLabInputs(labInputsArr)){
         retrieveData(labInputsArr);
         //console.log("its valid");
+        $("#labEntries").css('border-color','#32CD32');
     }else{
+        $("#labEntries").css('border-color','#800000');
         //console.log("not valid");
     }
 }
 
 function retrieveData(postData){
-   $("#loader").show();
-   $.ajax({
+    $("#loader").show();
+    $("#retrieveID").removeClass('btn-primary');
+    $("#retrieveID").removeClass('btn-danger');
+    $("#retrieveID").addClass('btn-primary');
+    $.ajax({
       url: "aggregateChartsHTML.php?function=getWholeData",
       data: {serverData : postData},
       type: 'post',
       error: function(XMLHttpRequest, textStatus, errorThrown){
           $("#loader").hide();
-         alert('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText);
+          $("#labEntries").css('border-color','#800000');
+          $("#retrieveID").removeClass('btn-primary');
+          $("#retrieveID").addClass('btn-danger');
+          //alert('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText);
       },
       success: function(result){
-          var resultCont = JSON.parse(result);
-          var jsonLabData = resultCont[0];
-          jsonLabData = cleanUpTable(jsonLabData);
-          var labNames = resultCont[1];
-          globjsonLabData = jsonLabData;
-          boxPlotTimes(jsonLabData, labNames);
-          // boxPlotGrades(jsonLabData, labNames);
-          groupByGrades(jsonLabData);
-          groupByTime(jsonLabData);
-          $("#loader").hide();
-          $('#aggPieCharts').removeClass('disp-none');
-          $("#aggFooter").show();
+          succCall(result);
       }
-   });
+    });
 }
+
+function succCall (result){
+    var resultCont = JSON.parse(result);
+    var jsonLabData = resultCont[0];
+    jsonLabData = cleanUpTable(jsonLabData);
+    var labNames = resultCont[1];
+    globjsonLabData = jsonLabData;
+    boxPlotTimes(jsonLabData, labNames);
+    // boxPlotGrades(jsonLabData, labNames);
+    groupByGrades(jsonLabData);
+    groupByTime(jsonLabData);
+    $("#loader").hide();
+    $('#aggPieCharts').removeClass('disp-none');
+    $("#aggFooter").show();
+    $("#retrieveID").removeClass('btn-primary');
+    $("#retrieveID").removeClass('btn-danger');
+    $("#retrieveID").addClass('btn-success');
+};
 
 function cleanUpTable(jsonLabData){
     //fullName//question//stuAvgTime//stuAvgGrade//stuTimes//stuGrades

@@ -23,17 +23,20 @@
     <section class="txt-center">
         <h1>Retrieve lab data of any VPL activity</h1>
         <p>
-            By simply entering the IDs of the labs required and clicking the "retrieve button"
-            <i class="fa fa-question-circle fa-1x" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="The ID for a VPL lab can be found by going unto the lab page on Moodle and copying the ID from its URL."></i>
+            By simply entering the IDs of the labs required and clicking the <b>'Retrieve'</b> button
+            <i class="fa fa-question-circle fa-1-2x" style="color:#f0ad4e" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="The ID for a VPL lab can be found by going unto the lab page on Moodle and copying the ID from its URL."></i>
         </p>
 
         <form>
-            E.g. "123,456,789"
-            <input id="labEntries" type="text" name="labs" value="">
-            <input type="button" value="Retrieve" onclick="labInputs()">
+            <input id="labEntries" type="text" name="labs" value="" placeholder="Example Input '123,456'">
+            <input id="retrieveID" type="button" class="btn btn-primary" value="Retrieve" onclick="labInputs()">
         </form>
 
-        <div id="loader" class="mg-t-20 displayNone"><i class="fa fa-cog fa-spin fa-3x fa-fw"></i></br><span>One moment...</span></div>
+        <div id="loader" class="mg-t-20 displayNone">
+            <i class="fa fa-cog fa-spin fa-3x fa-fw"></i></br>
+            <span>A valid string has been inputted</span>
+            <span>One moment...</span>
+        </div>
     </section>
 
     <section id="aggPieCharts" class="disp-none pb-20">
