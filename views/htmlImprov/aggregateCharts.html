@@ -8,7 +8,7 @@
 </head>
 <body id="aggregateLabs" class="bg-may">
     <section>
-        <nav class="navbar navbar-default navbar-fixed-top">
+        <nav class="navbar navbar-default navbar-fixed-top color-white bg-color-maroon">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <div class="mt-5">
@@ -27,15 +27,15 @@
             <i class="fa fa-question-circle fa-1-2x" style="color:#f0ad4e" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="The ID for a VPL lab can be found by going unto the lab page on Moodle and copying the ID from its URL."></i>
         </p>
 
-        <form>
-            <input id="labEntries" type="text" name="labs" value="" placeholder="Example Input '123,456'">
-            <input id="retrieveID" type="button" class="btn btn-primary" value="Retrieve" onclick="labInputs()">
+        <form id="idForm">
+            <input id="labEntries" type="text" name="labs" value="" placeholder="Example Input '123,456'" event.preventDefault()>
+            <button id="retrieveID" type="button" class="btn btn-primary" value="Retrieve" onclick="labInputs()">Retrieve</button>
         </form>
 
         <div id="loader" class="mg-t-20 displayNone">
             <i class="fa fa-cog fa-spin fa-3x fa-fw"></i></br>
-            <span>A valid string has been inputted</span>
-            <span>One moment...</span>
+            <span>A valid string has been inputted</span></br>
+            <span>The retrieval of the data is in process. One moment...</span>
         </div>
     </section>
 

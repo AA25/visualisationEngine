@@ -10,15 +10,10 @@ $(document).ready(function(){
     $('[data-toggle="popover"]').popover({container: "body"});
 });
 
-function checkBox(locator){
-    if(!($(locator).find(":checkbox").is(':checked'))){
-        $(locator).find(":checkbox").prop("checked",true);
-    }else{
-        $(locator).find(":checkbox").prop("checked",false);
-    }
-
-}
-
+$('#idForm').submit(function(e){
+    e.preventDefault();
+    labInputs();
+});
 function labInputs(){
     var labInputs = $("#labEntries").val();
     var labInputsArr = labInputs.split(",");
@@ -49,7 +44,6 @@ function retrieveData(postData){
           //alert('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText);
       },
       success: function(result){
-          console.log(result);
           succCall(result);
       }
     });

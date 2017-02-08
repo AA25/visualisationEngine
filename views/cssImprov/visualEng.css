@@ -84,11 +84,27 @@ a {
 .fa-1-2x{
     font-size: 1.2em;
 }
+.color-white{
+    color: #ffffff;
+}
+.bg-color-maroon{
+    background-color: #8d322c;
+}
 /*END CSS FOR ALL CONTENT **************************/
 
 /*START CSS FOR CHARTS *****************************/
 #timeGradeChart {
     padding-top: 10px;
+}
+/*END CSS FOR CHARTS **************************/
+
+/*START CSS FOR TOOLTIP *****************************/
+.tooltip.right .tooltip-inner {
+    background-color: #f0ad4e;
+    font-size: 14px;
+}
+.tooltip.right .tooltip-arrow {
+    border-right-color: #f0ad4e;
 }
 /*END CSS FOR CHARTS **************************/
 
