@@ -49,6 +49,7 @@ function retrieveData(postData){
           //alert('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText);
       },
       success: function(result){
+          console.log(result);
           succCall(result);
       }
     });

@@ -14,6 +14,11 @@ require_login();
 
 if($_SESSION['accessVerify'] == "allow"){
     if($_GET['function']=='getWholeData'){
+        //We first check if all the IDs exist for some activity.
+        for($i = 0; $i < sizeof($_REQUEST['serverData']); $i++){
+            new mod_vpl((int)$_REQUEST['serverData'][$i]);
+        }
+
         $wholeLabData = [];
         $labQuestions = [];
         $queryReport = "Data was successfully retrieved";
