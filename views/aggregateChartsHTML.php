@@ -12,25 +12,30 @@ require_once $CFG->dirroot.'/mod/vpl/vpl.class.php';
 require_once $CFG->dirroot.'/mod/vpl/vpl_submission_CE.class.php';
 require_login();
 
-if($_GET['function']=='getWholeData'){
-    $wholeLabData = [];
-    $labQuestions = [];
-    $queryReport = "Data was successfully retrieved";
+if($_SESSION['accessVerify'] == "allow"){
+    if($_GET['function']=='getWholeData'){
+        $wholeLabData = [];
+        $labQuestions = [];
+        $queryReport = "Data was successfully retrieved";
 
-    for($i = 0; $i < sizeof($_REQUEST['serverData']); $i++){
-        $testInst = new mod_vpl((int)$_REQUEST['serverData'][$i]);
-        $question = $testInst->get_course_module()->name;
-        $labQuestions[] = $question;
-        $stuSubmissions = $testInst->all_last_user_submission();
-        $wholeLabData = getDataPerLab($stuSubmissions,$wholeLabData, $testInst, $question, $DB);
+        for($i = 0; $i < sizeof($_REQUEST['serverData']); $i++){
+            $testInst = new mod_vpl((int)$_REQUEST['serverData'][$i]);
+            $question = $testInst->get_course_module()->name;
+            $labQuestions[] = $question;
+            $stuSubmissions = $testInst->all_last_user_submission();
+            $wholeLabData = getDataPerLab($stuSubmissions,$wholeLabData, $testInst, $question, $DB);
+        }
+        $responsedWith = array(
+            $wholeLabData, $labQuestions
+        );
+        echo json_encode($responsedWith);
+    }else{
+        include('/htmlImprov/aggregateCharts.html');
     }
-    $responsedWith = array(
-        $wholeLabData, $labQuestions
-    );
-    echo json_encode($responsedWith);
 }else{
-    include('/htmlImprov/aggregateCharts.html');
+    include('/htmlImprov/errorPage.html');
 }
+
 
 function getUserName($testInst, $userID, $DB){
    $userDetails = $DB->get_record('user',array('id' => $userID));

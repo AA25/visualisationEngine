@@ -466,6 +466,7 @@ if(($gradeable || $vpl->get_instance()->evaluate) && $subselection != 'notgraded
 @ob_flush();
 flush();
 session_start(); //Opening a session
+$_SESSION['accessVerify'] = "allow";
 $_SESSION['origTable'] = $table; // A copy of the $table var stored in the browser session
 //$sessionfile = ini_get('session.save_path') . '/' . 'sess_'.session_id();
 //echo 'session file: ', $sessionfile, ' ', '<br>', 'size: ', filesize($sessionfile), "\n";
