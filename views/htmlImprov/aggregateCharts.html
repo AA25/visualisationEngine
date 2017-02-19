@@ -24,11 +24,11 @@
         <h1>Retrieve lab data of any VPL activity</h1>
         <p>
             By simply entering the IDs of the labs required and clicking the <b>'Retrieve'</b> button
-            <i class="fa fa-question-circle fa-1-2x" style="color:#f0ad4e" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="The ID for a VPL lab can be found by going unto the lab page on Moodle and copying the ID from its URL."></i>
+            <i class="fa fa-question-circle fa-1-2x" style="color:#f0ad4e" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="The ID for a VPL lab can be found by going unto the 'submissions list' page of the particular VPL lab on Moodle and copying its ID from the URL."></i>
         </p>
 
         <form id="idForm">
-            <input id="labEntries" type="text" name="labs" value="" placeholder="Example Input '123,456'" event.preventDefault()>
+            <input id="labEntries" type="text" name="labs" value="" placeholder="Example Input '154,155'" event.preventDefault()>
             <button id="retrieveID" type="button" class="btn btn-primary" value="Retrieve" onclick="labInputs()">Retrieve</button>
         </form>
 
@@ -71,15 +71,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>x</td>
-                    <td>x</td>
-                    <td>x</td>
-                    <td>x</td>
-                    <td>
-                        <label class="switch mb-0 mt-5"><input type="checkbox"><div id="" class="slider round" type="button" data-placement="right" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover The ID for a VPL lab can be found by going unto the lab page on Moodle and copying the ID from its URL. The ID for a VPL lab can be found by going unto the lab page on Moodle and copying the ID from its URL."></div></label>
-                    </td>
-                </tr>
+
             </tbody>
         </table>
     </section>

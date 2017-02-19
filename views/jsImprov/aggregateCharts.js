@@ -312,7 +312,7 @@ function boxPlotTimes(jsonLabData, labNames){
     //console.log(data);
     //
     layout = {
-        title: 'Box Plot for student times spent per lab (Including mean & standard deviation)',
+        title: 'Box Plot for student times spent per lab (Including Standard deviation portrayed by the dotted lines)',
         yaxis: {
             autorange: true,
             showgrid: true,

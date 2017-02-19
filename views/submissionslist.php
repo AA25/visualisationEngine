@@ -484,6 +484,13 @@ include('/htmlImprov/testingHTML.html');
 //include('/phpImprov/aggregateChartsHTML.php');
 //include('/phpImprov/getTime.php');
 //Generate next info as <div id="submissionid">nextuser</div>
+?>
+
+    <!--<button id="displayAggregate" type="button" href="--><?php //echo substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT'])).'/htmlImprov/aggregateCharts.html';?><!--" class="btn btn-default letterButtons disp-block marg-auto">Display the charts for the aggregate of all lab questions</button>-->
+    <a href="<?php echo substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT'])).'/aggregateChartsHTML.php';?>" target="_blank">VPL Extension Page</a>
+
+<?php
+
 if(count($next_ids)){
     //Hide info
     echo '<div style="display:none;">';
@@ -492,8 +499,5 @@ if(count($next_ids)){
     }
     echo '</div>';
 }
-?>
-    <!--<button id="displayAggregate" type="button" href="--><?php //echo substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT'])).'/htmlImprov/aggregateCharts.html';?><!--" class="btn btn-default letterButtons disp-block marg-auto">Display the charts for the aggregate of all lab questions</button>-->
-    <a href="<?php echo substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT'])).'/aggregateChartsHTML.php';?>" target="_blank">Testing</a>
-<?php
+
 $vpl->print_footer();
