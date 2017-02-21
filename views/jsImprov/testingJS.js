@@ -15,19 +15,13 @@ var jsonTable,
     optionTime = {
         title: {
             display: true,
-            text: 'Student Time',
+            text: 'Student Times',
             fontSize: 16
         }
     },
     ctxTimeGrade,
     myTimeGradeChart,
-    optionTimeGrade = {
-        title: {
-            display: true,
-            text: 'Student Grades within a particular time',
-            fontSize: 16
-        }
-    },
+    optionTimeGrade = {},
     dataTimeGrade;
 
 var timeAarr = [], timeBarr = [], timeCarr = [], timeDarr = [], timeEarr = [];
@@ -440,6 +434,9 @@ function displayTable(tableContent){
     $('#tableUpdated').remove();
     $("#popContainer").append(createPop);
     $("#tableUpdated").fadeIn();
+    setTimeout(function(){
+       $('#tableUpdated').fadeOut();
+    }, 4000);
 }
 
 

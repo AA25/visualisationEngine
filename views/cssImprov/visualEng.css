@@ -30,6 +30,9 @@ a {
 #subListBody a {
     color: #007e8c;
 }
+.mt-20 {
+    margin-top: 20px;
+}
 .mt-10 {
     margin-top: 10px;
 }
