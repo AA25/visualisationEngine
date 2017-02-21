@@ -65,7 +65,6 @@ function getTotalSubs() {
 function groupTimeData(table){
     table = removeNoGrades(table);
     timeAarr.data = [], timeBarr.data = [], timeCarr.data = [], timeDarr.data = [], timeEarr.data = [];
-
     var timeA = 0, timeB = 0, timeC = 0, timeD = 0, timeE = 0;
     for(var i = 0; i<table.data.length; i++){
         if((table.data[i][9] >= 0) && (table.data[i][9] <= 19)){
@@ -225,7 +224,7 @@ function groupGrades(){
     var aGrade = 0, bGrade = 0, cGrade = 0, fGrade = 0, noGrade = 0, errorChecker = 0;
 
     for(var i = 0; i<jsonTable.data.length; i++){
-        //The follow line is dependant on the grade system used returns X / X, a false case should be introduced incase this grade system is not used
+        //The follow line is dependant on the grade system used returns X/X, a false case should be introduced incase this grade system is not used
         var getSubString = $(jsonTable.data[i][5]).text();
         if(getSubString == "No grade"){
             noGrade++;
@@ -290,15 +289,16 @@ document.getElementById("myCChart").onclick = function(evt) {
             groupTimeData(gradeAarr);
         }else if(label == "Students between 79-60"){
             constructTableContent(60,'',null);
-            timeBarr = gradeBarr;
+            //timeBarr = gradeBarr;
+            //console.log(gradeBarr);
             groupTimeData(gradeBarr);
         }else if(label == "Students between 59-40"){
             constructTableContent(40,'',null);
-            timeCarr = gradeCarr;
+            //timeCarr = gradeCarr;
             groupTimeData(gradeCarr);
         }else if(label == "Students between 40-0"){
             constructTableContent(0,'',null);
-            timeDarr = gradeFarr;
+            //timeDarr = gradeFarr;
             groupTimeData(gradeFarr);
         }else if(label == "Students yet to be graded"){
             constructTableContent(-1,'',null);
@@ -346,7 +346,7 @@ function constructTableContent(gradeGroup,letter,array){
             createLetterLinks(gradeGroup,tempArray);
         }
     }else if(gradeGroup == -99){
-        //This is in the case of possible anomalie. My guess is that the grading system used is not 'X / X' e.g. 20 / 100
+        //This is in the case of a possible anomalie. My guess is that the grading system used is not 'X / X' e.g. 20 / 100
         //Not sure what I should do here yet.
     }else if(gradeGroup == "Students over 60"){//This is when the bar chart box is calling this function
         tempArray = createTempArrWithLetter(60,100,letter,gradeGroup,thisTable)
@@ -355,7 +355,7 @@ function constructTableContent(gradeGroup,letter,array){
     }else if(gradeGroup == "Students under 40"){
         tempArray = createTempArrWithLetter(0,39,letter,gradeGroup, thisTable)
     }
-
+    //console.log(tempArray);
     displayTable(tempArray);
 }
 
