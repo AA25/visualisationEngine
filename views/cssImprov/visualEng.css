@@ -171,6 +171,21 @@ a {
 }
 /*END CSS FOR THE TABLE **************************/
 
+/*CSS FOR  POPOVERS   *****************************/
+.pos-fixed {
+    position: fixed;
+}
+.z-i-2{
+    z-index: 2;
+}
+
+.pop-pos{
+    top: 90%;
+    right: 1%;
+}
+
+/*END CSS FOR THE TABLE ***************************/
+
 /*CSS FOR TOGGLE SWITCH   **************************/
 .switch {
     position: relative;

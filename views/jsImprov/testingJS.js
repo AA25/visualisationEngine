@@ -1,15 +1,33 @@
 var jsonTable,
     dataV2,
     ctxV2,
-    optionsV2 = {},
+    optionsV2 = {
+        title: {
+            display: true,
+            text: 'Student Grades',
+            fontSize: 16
+        }
+    },
     myPieChartV2,
     ctxTime,
     myTimeChart,
     dataTime,
-    optionTime = {},
+    optionTime = {
+        title: {
+            display: true,
+            text: 'Student Time',
+            fontSize: 16
+        }
+    },
     ctxTimeGrade,
     myTimeGradeChart,
-    optionTimeGrade,
+    optionTimeGrade = {
+        title: {
+            display: true,
+            text: 'Student Grades within a particular time',
+            fontSize: 16
+        }
+    },
     dataTimeGrade;
 
 var timeAarr = [], timeBarr = [], timeCarr = [], timeDarr = [], timeEarr = [];
@@ -20,6 +38,9 @@ gradeAarr.data = [], gradeBarr.data = [], gradeCarr.data = [], gradeFarr.data = 
 
 startDefaultChartOptions();
 $("#displayStatus").hide();
+// $("#tableUpdated").click(function(){
+//     $("#tableUpdated").fadeOut();
+// });
 // $("#tableLoader").hide();
 
 getTotalSubs();
@@ -85,7 +106,7 @@ function assignTimeData(timeA, timeB, timeC, timeD, timeE){
             }
         ]
     };
-    $('#timeChart').remove(); // this is my <canvas> element
+    $('#timeChart').remove(); // this is the <canvas> element
     $('#timeGradeCont').append('<canvas id="timeChart"><canvas>');
     ctxTime = document.getElementById("timeChart").getContext("2d");
     ctxTime.canvas.width = 300;
@@ -147,6 +168,11 @@ function assignTimeGradeData(group){
     optionTimeGrade = {
         legend: {
             display: false
+        },
+        title: {
+            display: true,
+            text: 'Student Grades within a particular time',
+            fontSize: 16
         }
     };
     dataTimeGrade = {
@@ -404,6 +430,16 @@ function displayTable(tableContent){
     }
     // $("#tableLoader").hide();
     $("#displayStatus").show();
+
+    var createPop = '<div id="tableUpdated" class="alert alert-info alert-dismissable fade in" style="display: none;">'
+        +'<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>'
+        +'<strong>Table Update!</strong> Scroll down to view the updated table'
+        +'<a href="#displayStatus" class="mg-l-5px"><i class="fa fa-sort-desc"></i></a>'
+        +'</div>';
+    $("#tableUpdated").fadeOut();
+    $('#tableUpdated').remove();
+    $("#popContainer").append(createPop);
+    $("#tableUpdated").fadeIn();
 }
 
 
