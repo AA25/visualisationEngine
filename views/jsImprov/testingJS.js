@@ -309,11 +309,12 @@ document.getElementById("myCChart").onclick = function(evt) {
 };
 
 function constructTableContent(gradeGroup,letter,array){
-    var thisTable = array ;
+    var thisTable = array;
     if (thisTable === undefined || thisTable === null) {
         thisTable = jsonTable;
     }
     var loopCounter = 0,
+        timePopSuccess = true;
         tempArray = [[]];
 
     if(gradeGroup == 80){
@@ -344,19 +345,23 @@ function constructTableContent(gradeGroup,letter,array){
                 loopCounter++;
             }
             createLetterLinks(gradeGroup,tempArray);
+            timePopSuccess = false;
         }
     }else if(gradeGroup == -99){
         //This is in the case of a possible anomalie. My guess is that the grading system used is not 'X / X' e.g. 20 / 100
         //Not sure what I should do here yet.
-    }else if(gradeGroup == "Students over 60"){//This is when the bar chart box is calling this function
-        tempArray = createTempArrWithLetter(60,100,letter,gradeGroup,thisTable)
+    }else if(gradeGroup == "Students over 60"){//This is when the bar chart is calling this function
+        tempArray = createTempArrWithLetter(60,100,letter,gradeGroup,thisTable);
+        timePopSuccess = null;
     }else if(gradeGroup == "Students between 59-40"){
-        tempArray = createTempArrWithLetter(40,59,letter,gradeGroup, thisTable)
+        tempArray = createTempArrWithLetter(40,59,letter,gradeGroup, thisTable);
+        timePopSuccess = null;
     }else if(gradeGroup == "Students under 40"){
-        tempArray = createTempArrWithLetter(0,39,letter,gradeGroup, thisTable)
+        tempArray = createTempArrWithLetter(0,39,letter,gradeGroup, thisTable);
+        timePopSuccess = null;
     }
     //console.log(tempArray);
-    displayTable(tempArray);
+    displayTable(tempArray, timePopSuccess);
 }
 
 function createTempArrWithLetter(min, max, letter, gradeGroup, table){
@@ -406,7 +411,7 @@ function createTempArrWithLetter(min, max, letter, gradeGroup, table){
     return tempArray;
 }
 
-function displayTable(tableContent){
+function displayTable(tableContent, timePopSuccess){
     $("#outputTable tbody").empty();
     var inArray = 2;
     for(var eachArray = 0; eachArray < tableContent[0].length; eachArray++){
@@ -425,18 +430,73 @@ function displayTable(tableContent){
     // $("#tableLoader").hide();
     $("#displayStatus").show();
 
-    var createPop = '<div id="tableUpdated" class="alert alert-info alert-dismissable fade in" style="display: none;">'
+    var createTablePop = '<div id="tableUpdated" class="alert alert-info alert-dismissable fade in" style="display: none;">'
         +'<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>'
         +'<strong>Table Update!</strong> Scroll down to view the updated table'
         +'<a href="#displayStatus" class="mg-l-5px"><i class="fa fa-sort-desc"></i></a>'
         +'</div>';
-    $("#tableUpdated").fadeOut();
-    $('#tableUpdated').remove();
-    $("#popContainer").append(createPop);
-    $("#tableUpdated").fadeIn();
-    setTimeout(function(){
-       $('#tableUpdated').fadeOut();
-    }, 4000);
+
+    var createPiePopSuccess = '<div id="studentTimesUpdated" class="alert alert-info alert-dismissable fade in" style="max-height: 100px">'
+        +'<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>'
+        +'<p><strong>Student Times Chart Updated!</strong> It now displays data only from the segment you clicked in the Student Grades Chart.</p>'
+        +'<div>';
+
+    var createPiePopFail = '<div id="studentTimesUpdated" class="alert alert-danger alert-dismissable fade in" style="max-height: 100px">'
+        +'<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>'
+        +'<p><strong>Student Times Chart was not updated!</strong> It has not been updated according to the segment clicked in the Student Grades Chart.</p>'
+        +'<div>';
+
+    // $("#tableUpdated").fadeOut();
+    // $('#tableUpdated').remove();
+    // $("#popContainer").append(createTablePop);
+    // $("#tableUpdated").fadeIn();
+    // setTimeout(function(){
+    //     $('#tableUpdated').fadeOut();
+    // }, 4000);
+
+    if(timePopSuccess == null){
+        $("#tableUpdated").fadeOut();
+        $("#studentTimesUpdated").fadeOut();
+        $('#tableUpdated').remove();
+        $('#studentTimesUpdated').remove();
+        $("#popContainer").append(createTablePop);
+        $("#tableUpdated").fadeIn();
+        setTimeout(function(){
+            $('#tableUpdated').fadeOut();
+        }, 4000);
+
+    }else if(timePopSuccess){
+        $("#tableUpdated").fadeOut();
+        $("#studentTimesUpdated").fadeOut();
+        $('#tableUpdated').remove();
+        $('#studentTimesUpdated').remove();
+        $("#popContainer").append(createTablePop);
+        $("#popContainer").append(createPiePopSuccess);
+        $("#tableUpdated").fadeIn();
+        $("#studentTimesUpdated").fadeIn();
+        setTimeout(function(){
+            $('#tableUpdated').fadeOut();
+        }, 4000);
+        setTimeout(function(){
+            $('#studentTimesUpdated').fadeOut();
+        }, 8000);
+    }else{
+        $("#tableUpdated").fadeOut();
+        $("#studentTimesUpdated").fadeOut();
+        $('#tableUpdated').remove();
+        $('#studentTimesUpdated').remove();
+        $("#popContainer").append(createTablePop);
+        $("#popContainer").append(createPiePopFail);
+        $("#tableUpdated").fadeIn();
+        $("#studentTimesUpdated").fadeIn();
+        setTimeout(function(){
+            $('#tableUpdated').fadeOut();
+        }, 4000);
+        setTimeout(function(){
+            $('#studentTimesUpdated').fadeOut();
+        }, 8000);
+    }
+
 }
 
 
