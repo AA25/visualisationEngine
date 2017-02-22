@@ -32,11 +32,14 @@ gradeAarr.data = [], gradeBarr.data = [], gradeCarr.data = [], gradeFarr.data = 
 
 startDefaultChartOptions();
 $("#displayStatus").hide();
-// $("#tableUpdated").click(function(){
-//     $("#tableUpdated").fadeOut();
-// });
-// $("#tableLoader").hide();
-
+$(window).scroll(function() {
+    if($(document).scrollTop().valueOf() >= 1198){
+        $('#upArrow').fadeIn();
+    }else if(($(document).scrollTop().valueOf() <= 1197) ){
+        $('#upArrow').fadeOut();
+    }
+});
+$("#upArrow").on("click", function() { $("body").scrollTop(0); });
 getTotalSubs();
 
 function getTotalSubs() {
