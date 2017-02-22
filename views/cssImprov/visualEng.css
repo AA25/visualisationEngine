@@ -93,6 +93,9 @@ a {
 .bg-color-maroon{
     background-color: #8d322c;
 }
+.cur-point{
+    cursor:pointer;
+}
 /*END CSS FOR ALL CONTENT **************************/
 
 /*START CSS FOR CHARTS *****************************/
