@@ -7,6 +7,10 @@
     <title>Aggregate of labs</title>
 </head>
 <body id="aggregateLabs" class="bg-may">
+    <div id="upArrow" class="displayNone cur-point" style="background-color: grey;height: 35px;width: 35px;border-radius: 20px;color: white;position: fixed;text-align: center; top: 50%;">
+        <i class="fa fa-arrow-up fa-2x" aria-hidden="true" style="margin-top: 3px;"></i>
+    </div>
+
     <section>
         <nav class="navbar navbar-default navbar-fixed-top color-white bg-color-maroon">
             <div class="container-fluid">
@@ -14,6 +18,10 @@
                     <div class="mt-5">
                         <img alt="Maynooth" src="./imgImprov/NUIM_Symbol.svg.png" height="35px" width="35px" class="mt-5">
                         <span class="font-large">Virtual Programming Lab Extension</span>
+                        <!--<span class="pos-relative left-100">-->
+                            <!--<u>How do I get the ID?</u>-->
+                            <!--<i class="fa fa-question-circle fa-1-2x cur-help" style="color: #ffffff;"></i>-->
+                        <!--</span>-->
                     </div>
                 </div>
             </div>
@@ -23,64 +31,90 @@
     <section class="txt-center">
         <h1>Retrieve lab data of any VPL activity</h1>
         <p>
-            By simply entering the IDs of the labs required and clicking the <b>'Retrieve'</b> button
-            <i class="fa fa-question-circle fa-1-2x" style="color:#f0ad4e" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="The ID for a VPL lab can be found by going unto the 'submissions list' page of the particular VPL lab on Moodle and copying its ID from the URL."></i>
+            Just enter the IDs of the lab questions required and click the <b>'Retrieve'</b> button
+            <i class="fa fa-question-circle fa-1-2x cur-help" style="color:#f0ad4e" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="Every VPL lab question has an ID. Simply go to the 'Submissions List' page of a particular lab question and copy it's ID from the URL"></i>
         </p>
 
         <form id="idForm">
+            Separate ID's with a comma
             <input id="labEntries" type="text" name="labs" value="" placeholder="Example Input '154,155'" event.preventDefault()>
             <button id="retrieveID" type="button" class="btn btn-primary" value="Retrieve" onclick="labInputs()">Retrieve</button>
         </form>
 
         <div id="loader" class="mg-t-20 displayNone">
             <i class="fa fa-cog fa-spin fa-3x fa-fw"></i></br>
-            <span>A valid string has been inputted</span></br>
+            <span>A valid string format has been inputted</span></br>
             <span>The retrieval of the data is in process. One moment...</span>
         </div>
     </section>
 
-    <section id="aggPieCharts" class="disp-none pb-20">
-        <div class="" style="position:relative; width:100%; margin-top: 15px">
-            <div class="txt-center" id="gradeChartContainer" style="margin-left:23%; width:27%; max-width:27%; min-width:20%; float:left;">
-                <canvas id="avgGradeChart" width="300" height="300" style=""></canvas>
+    <section id="popContainer" class="z-i-2 pos-fixed pop-pos" style="max-width: 300px">
+        <!--<div id="invalidString" class="alert alert-danger alert-dismissable fade in" style="max-height: 100px">-->
+            <!--<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>-->
+            <!--<p>-->
+                <!--<strong>Invalid String!</strong> illegal string format inputted.-->
+            <!--</p>-->
+        <!--</div>-->
+        <!--<div id="invalidID" class="alert alert-danger alert-dismissable fade in" style="max-height: 100px">-->
+            <!--<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>-->
+            <!--<p><strong>Invalid ID!</strong> One or several ID's inputted does not exist.</p>-->
+        <!--</div>-->
+        <!--<div id="rtnSucc" class="alert alert-success alert-dismissable fade in" style="max-height: 100px">-->
+            <!--<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>-->
+            <!--<p>-->
+                <!--<strong>Data Retrieved!</strong> See data retrieved below.-->
+            <!--</p>-->
+        <!--</div>-->
+        <!--<div id="tableUpdated" class="alert alert-info alert-dismissable fade in" style="max-height: 100px">-->
+            <!--<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>-->
+            <!--<p><strong>Table Update!</strong> Scroll down to view the updated table<a href="#displayStatus" class="mg-l-5px"><i class="fa fa-sort-desc"></i></a></p>-->
+        <!--</div>-->
+
+    </section>
+    <section id="allRtnData">
+        <section id="aggPieCharts" class="disp-none pb-20">
+            <div class="" style="position:relative; width:100%; margin-top: 15px">
+                <div class="txt-center" id="gradeChartContainer" style="margin-left:23%; width:27%; max-width:27%; min-width:20%; float:left;">
+                    <canvas id="avgGradeChart" width="300" height="300" style=""></canvas>
+                </div>
+                <div class="txt-center" id="timeChartContainer" style="width:27%; max-width:27%; min-width:20%; float:left">
+                    <canvas id="avgTimeChart" width="300" height="300"></canvas>
+                </div>
             </div>
-            <div class="txt-center" id="timeChartContainer" style="width:27%; max-width:27%; min-width:20%; float:left">
-                <canvas id="avgTimeChart" width="300" height="300"></canvas>
+            <div class="clearfix"></div>
+        </section>
+
+        <section id="aggBoxPlots">
+            <div id="boxPlotTime"></div>
+            <div id="boxPlotGrade"></div>
+        </section>
+
+        <section id="displayStatus" class="table-responsive displayNone">
+            <table id="outputTable" class="table table-striped table-hover">
+                <thead id="tableHeader" class="thead-inverse">
+                    <tr>
+                        <th class=""><img src="./imgImprov/NUIM_Symbol.svg.png" alt="Maynooth University Logo" height="25px" width="25px"></th>
+                        <th>First/Last Name</th>
+                        <th>Submission Average Grade</th>
+                        <th class="">Submission Average Time</th>
+                        <th class="">
+                            More Info
+                            <i class="fa fa-question-circle fa-1x" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Click the toggle switch to provide a popup about the student. Re-click the switch to close the popover"></i>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </section>
+
+        <section id="aggFooter" class="footer displayNone">
+            <div class="container">
+                <p class="text-muted txt-center">Developer: Ademola Akingbade</p>
             </div>
-        </div>
-        <div class="clearfix"></div>
+        </section>
     </section>
-
-    <section id="aggBoxPlots">
-        <div id="boxPlotTime"></div>
-        <div id="boxPlotGrade"></div>
-    </section>
-
-    <section id="displayStatus" class="table-responsive displayNone">
-        <table id="outputTable" class="table table-striped table-hover">
-            <thead id="tableHeader" class="thead-inverse">
-                <tr>
-                    <th class=""><img src="./imgImprov/NUIM_Symbol.svg.png" alt="Maynooth University Logo" height="25px" width="25px"></th>
-                    <th>First/Last Name</th>
-                    <th>Submission Average Grade</th>
-                    <th class="">Submission Average Time</th>
-                    <th class="">
-                        More Info
-                        <i class="fa fa-question-circle fa-1x" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Click the toggle switch to provide a popup about the student. Re-click the switch to close the popover"></i>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
-        </table>
-    </section>
-
-    <footer id="aggFooter" class="footer displayNone">
-        <div class="container">
-            <p class="text-muted txt-center">Developer: Ademola Akingbade</p>
-        </div>
-    </footer>
 
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="./jsImprov/JQuery.js-3.1.1/jquery.min.js"></script>

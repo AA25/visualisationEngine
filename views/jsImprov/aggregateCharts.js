@@ -4,6 +4,7 @@
 //Suggestion: Make private object of the data
 var avgGradePieChart;
 var globjsonLabData;
+$("#allRtnData").css('opacity','0');
 
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
@@ -14,16 +15,36 @@ $('#idForm').submit(function(e){
     e.preventDefault();
     labInputs();
 });
+
+$(window).scroll(function() {
+    if($(document).scrollTop().valueOf() >= 800){
+        $('#upArrow').fadeIn();
+    }else if(($(document).scrollTop().valueOf() <= 799) ){
+        $('#upArrow').fadeOut();
+    }
+});
+$("#upArrow").on("click", function() { $("body").scrollTop(0); });
+
 function labInputs(){
     var labInputs = $("#labEntries").val();
     var labInputsArr = labInputs.split(",");
     if (verifyLabInputs(labInputsArr)){
-        retrieveData(labInputsArr);
         //console.log("its valid");
         $("#labEntries").css('border-color','#32CD32');
+        retrieveData(labInputsArr);
     }else{
-        $("#labEntries").css('border-color','#800000');
         //console.log("not valid");
+        $("#allRtnData").css('opacity','0');
+        $("#labEntries").css('border-color','#800000');
+        var createInvalidPop = '<div id="invalidFormat" class="alert alert-danger alert-dismissable fade in" style="max-height: 100px">'
+            +'<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>'
+            +'<p><strong>Invalid String!</strong> illegal string format inputted.</p>'
+            +'</div>';
+        $('#invalidFormat').remove();
+        $('#popContainer').append(createInvalidPop);
+        setTimeout(function(){
+            $('#invalidFormat').fadeOut();
+        }, 3000);
     }
 }
 
@@ -37,14 +58,34 @@ function retrieveData(postData){
       data: {serverData : postData},
       type: 'post',
       error: function(XMLHttpRequest, textStatus, errorThrown){
-          $("#loader").hide();
+          $("#loader").fadeOut();
+          $("#allRtnData").css('opacity','0');
           $("#labEntries").css('border-color','#800000');
           $("#retrieveID").removeClass('btn-primary');
           $("#retrieveID").addClass('btn-danger');
+          var createInvalidPop = '<div id="invalidID" class="alert alert-danger alert-dismissable fade in" style="max-height: 100px">'
+              +'<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>'
+              +'<p><strong>Invalid ID!</strong> One or several IDs inputted does not exist.</p>'
+              +'</div>';
+          $('#invalidID').remove();
+          $('#popContainer').append(createInvalidPop);
+          setTimeout(function(){
+              $('#invalidID').fadeOut();
+          }, 3000);
           //alert('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText);
       },
       success: function(result){
+          var createSuccPop = '<div id="rtnSucc" class="alert alert-success alert-dismissable fade in" style="max-height: 100px">'
+              +'<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>'
+              +'<p><strong>Data Retrieved!</strong> See data retrieved below.</p>'
+              +'</div>';
           succCall(result);
+          $('#rtnSucc').remove();
+          $('#popContainer').append(createSuccPop);
+          setTimeout(function(){
+              $('#rtnSucc').fadeOut();
+          }, 2000);
+          $("#allRtnData").css('opacity','1');
       }
     });
 }
@@ -266,6 +307,17 @@ function displayTable(tableContent){
     }
     $('[data-toggle="popover"]').popover({container: "body"});
     $("#displayStatus").show();
+
+    var createTableUpdate = '<div id="tableUpdated" class="alert alert-info alert-dismissable fade in" style="max-height: 100px">'
+        +'<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>'
+        +'<p><strong>Table Update!</strong> Scroll down to view the updated table<a href="#displayStatus" class="mg-l-5px"><i class="fa fa-sort-desc"></i></a></p>'
+        +'</div>';
+    $('#tableUpdated').remove();
+    $('#popContainer').append(createTableUpdate);
+    setTimeout(function(){
+        $('#tableUpdated').fadeOut();
+    }, 2000);
+
 }
 
 function boxPlotTimes(jsonLabData, labNames){
